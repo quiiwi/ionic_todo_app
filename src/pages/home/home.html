@@ -12,8 +12,25 @@
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
         <ion-label>{{ task.title }}</ion-label>
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox
+          [(ngModel)]="task.status"
+          [checked]="task.status"
+          [class.done]="task.status"
+          color="secondary"
+        ></ion-checkbox>
       </ion-item>
     </ion-item-sliding>
+    <ion-item *ngIf="active">
+      <ion-input
+        type="text"
+        placeholder="Ajouter une tâche"
+        (ionBlur)="saveTask()"
+        [(ngModel)]="task.title"
+        (keypress)="checkKey($event.key)"
+      >
+
+
+      </ion-input>
+    </ion-item>
   </ion-list>
 </ion-content>

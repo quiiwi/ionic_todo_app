@@ -1,3 +1,12 @@
-page-home {
 
+
+
+page-home {
+  $main-color: darkgrey;
+
+  .done + .item-inner > .input-wrapper {
+    color: $main-color;
+    text-decoration: line-through;
+  }
 }
+
