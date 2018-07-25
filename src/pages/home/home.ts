@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {Task} from "../../models/task";
 import {TasksProvider} from "../../providers/tasks/tasks";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-home',
@@ -19,28 +20,31 @@ export class HomePage implements OnInit{
   /** Affichage du Champ input @type {boolean}*/
   active: boolean = true;
 
+  /** Gestion des Dates  */
+  date: Date = new Date();
+
   /** Liste des tâches @type {Task[]}  */
   tasks: Task[] = [ /** tasks même données que Task[], qui est égal au tableau ci-dessous */
-    {
-      id:1,
-      title:'promener le chien',
-      status:false
-    },
-    {
-      id:2,
-      title:'Arroser les plantes',
-      status:true
-    },
-    {
-      id:3,
-      title:'mourrir',
-      status:false
-    },
-    {
-      id:4,
-      title:'être en dépression',
-      status:true
-    }
+    // {
+    //   id:1,
+    //   title:'promener le chien',
+    //   status:false
+    // },
+    // {
+    //   id:2,
+    //   title:'Arroser les plantes',
+    //   status:true
+    // },
+    // {
+    //   id:3,
+    //   title:'mourrir',
+    //   status:false
+    // },
+    // {
+    //   id:4,
+    //   title:'être en dépression',
+    //   status:true
+    // }
   ];
 
   /**  déclanche l'enregistrement d'une nouvelle tâche.*/
@@ -78,6 +82,16 @@ export class HomePage implements OnInit{
     }
   }
 
+  saveOurTasks(){
+    this.tasksProvider.save(this.tasks);
+  }
+
+  /** supprime une tâche. */
+  deleteTask(task: Task){
+    _.pullAllWith(this.tasks,[task],_.isEqual);
+    this.saveOurTasks()
+  }
+
   ngOnInit(): void {
     /**
      * Au chargement de mon application, je récupère les données en mémoire.
@@ -90,4 +104,5 @@ export class HomePage implements OnInit{
       }
     )
   }
+
 }

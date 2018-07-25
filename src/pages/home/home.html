@@ -7,30 +7,82 @@
 </ion-header>
 
 <ion-content padding>
+
+  <div padding *ngIf="tasks.length === 0">
+    <h5 text-center>
+      Aucune tâche pour le moment
+    </h5>
+
+  </div>
+
+
+
+
   <ion-list>
-    <!-- Ma liste de tâche -->
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
         <ion-label>{{ task.title }}</ion-label>
-        <ion-checkbox
-          [(ngModel)]="task.status"
-          [checked]="task.status"
-          [class.done]="task.status"
-          color="secondary"
-        ></ion-checkbox>
+        <ion-checkbox [(ngModel)]="task.status"
+                      [checked]="task.status"
+                      [class.done]="task.status"
+                      color="secondary">
+        </ion-checkbox>
+
+        <ion-note item-end
+                  *ngIf="task.duedate"
+                  class="todo-note">
+
+          <span>&Eacute;chéance</span><br>
+          {{ task.duedate | moment }}
+
+        </ion-note>
+
       </ion-item>
+
+      <ion-item-options  side="right"
+                        (ionSwipe)="deleteTask (task)">
+
+
+        <button expandable
+                ion-button
+                (click)="deleteTask (task)"
+                color="danger">
+          Supprimer
+        </button>
+
+
+
+      </ion-item-options>
+
+
+      <!-- ++ bouton-->
+
+
     </ion-item-sliding>
     <ion-item *ngIf="active">
-      <ion-input
-        type="text"
-        placeholder="Ajouter une tâche"
-        (ionBlur)="saveTask()"
-        [(ngModel)]="task.title"
-        (keypress)="checkKey($event.key)"
-      >
+      <ion-input  type="text"
+                  placeholder="Ajouter une tâche"
 
-
+                  [(ngModel)]="task.title"
+                  (keypress)="checkKey($event.key)"> <!-- (ionBlur)="saveTask()" -->
       </ion-input>
+
+      <!--Bouton du Calendrier -->
+      <button ion-button item-left clear
+              (click)="picker.open()"
+              class="todo-calendar">
+        <ion-icon name="calender"></ion-icon>
+
+        <ion-datetime #picker
+                      displayFormat="DD/MM/YYYY"
+                      doneText="Confirmer"
+                      cancelText="Annuler"
+                      min="{{ date.toISOString() }}"
+                      max="{{ date.getFullYear() + 10 }}"
+                      [(ngModel)]="task.duedate">
+
+        </ion-datetime>
+      </button>
     </ion-item>
   </ion-list>
 </ion-content>

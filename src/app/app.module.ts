@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import {FormsModule} from "@angular/forms";
 import { TasksProvider } from '../providers/tasks/tasks';
 import {IonicStorageModule} from "@ionic/storage";
+import {PipesModule} from "../pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import {IonicStorageModule} from "@ionic/storage";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FormsModule, /** permet d'avoir/importer le ngModel et de pouvoir l'utiliser. */
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    PipesModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [

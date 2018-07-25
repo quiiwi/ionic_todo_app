@@ -8,5 +8,23 @@ page-home {
     color: $main-color;
     text-decoration: line-through;
   }
+  .todo-calendar{
+    ion-icon{
+      font-size: 2em;
+      color: $main-color;
+    }
+  }
+
+  //règle le bug du calendrier sur Android
+  .input-cover{
+    position: static;
+  }
+
+  .todo-note{
+    font-size: 0.9em;
+    span{
+      font-size: 0.8em;
+    }
+  }
 }
 
